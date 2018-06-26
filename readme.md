@@ -14,3 +14,13 @@ npm install -g create-react-app
 npm install mysql
 
 ```
+
+To start the app, from the root folder run:
+```
+PORT=3001 node bin/www
+```
+Start the React development server by running :
+
+```
+npm start
+```
