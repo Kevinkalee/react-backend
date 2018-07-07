@@ -144,7 +144,7 @@ function create_student_table(connection){
 			'MotherName VARCHAR(255), '+
 			'FatherName VARCHAR(255), '+
 			'Is_Christian ENUM("Y","N"), '+
-			'PRIMARY KEY(ID))');
+			'PRIMARY KEY(Student_ID))');
 	console.log(query.sql);
 }
 
@@ -176,6 +176,7 @@ var pastor = {
 	ContactNumber: '0871111111',
 	Address: 'Dundrum, D16',
 	DOB: '1974-03-15',
+	CellGroupID: '1',
 	RoleCode: 'P',
 	LoCode: 'E',
 	MinistryID: 'M1100',
@@ -184,7 +185,7 @@ var pastor = {
 
 
 connect_db(con);
-insert_entry(con, pastor );
+insert_entry(con, pastor);
 if (FLAG == 1 ){ // only use for debugging purposes
 create_member_table(con);
 create_non_members_table(con);
