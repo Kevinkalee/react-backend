@@ -1,5 +1,5 @@
 var mysql = require('mysql')
-var FLAG = 1; //  Debug FLAG for setting up database at the start 
+var FLAG = 0; //  Debug FLAG for setting up database at the start 
 // Setting up database connection parameters
 var con = mysql.createConnection({
 	host: 'localhost',
@@ -36,7 +36,7 @@ function create_member_table(connection){
 		'Surname VARCHAR(255),' +
 		'FirstName VARCHAR(255),' + 
 		'Sex ENUM("M","F"),' +
-		'ContactNumber INT(255),' +
+		'ContactNumber VARCHAR(255),' +
 		'Address VARCHAR(255),' +
 		'DOB DATE,' +
 		'RoleCode VARCHAR(2),' +
@@ -57,7 +57,7 @@ function create_non_members_table(connection){
 		'Surname VARCHAR(255), ' +
 		'FirstName VARCHAR(255), ' +
 		'Sex ENUM("M","F"), ' +
-		'ContactNumber INT(255), ' +
+		'ContactNumber VARCHAR(255), ' +
 		'Address VARCHAR(255), ' +
 		'Status ENUM("Regular","Visitor"), ' +
 		'PRIMARY KEY(ID))');
@@ -158,9 +158,34 @@ function query_table(connection , table_name){
 	})
 }
 
-connect_db(con);
 
-if (FLAG == 1 ){
+function insert_entry(connection, entry){
+	var query = connection.query('INSERT INTO Member SET ?', entry, function(err, result){
+		if (err) {
+			console.error(err);
+			return;
+		}
+		console.error(result);
+	})
+}
+
+var pastor = {
+	Surname: 'Cheung',
+	FirstName: 'Edmund',
+	Sex: 'M',
+	ContactNumber: '0871111111',
+	Address: 'Dundrum, D16',
+	DOB: '1974-03-15',
+	RoleCode: 'P',
+	LoCode: 'E',
+	MinistryID: 'M1100',
+	Consents: 'C1,C2,C3,C4,C5,S1,S2,S3,S4'
+};
+
+
+connect_db(con);
+insert_entry(con, pastor );
+if (FLAG == 1 ){ // only use for debugging purposes
 create_member_table(con);
 create_non_members_table(con);
 create_cell_group_table(con); 
