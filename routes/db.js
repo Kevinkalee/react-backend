@@ -1,11 +1,11 @@
 var mysql = require('mysql')
-
+var FLAG = 1; //  Debug FLAG for setting up database at the start 
 // Setting up database connection parameters
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: '',
-	database: 'appdatabase'
+	password: 'doublevision',
+	database: 'church'
 })
 
 // Testing connection to database
@@ -24,167 +24,129 @@ function connect_db(connection){
 function create_database(connection, name){
 	connection.query('CREATE DATABASE '+ name , function (err,results){
 		if (err) throw err; 
-		console.log('Database ' + name ' created!');
+		console.log('Database ' + name +' created!');
 	});	
 }
 
 // creates member table within db
 function create_member_table(connection){
 	
-	connection.query('SELECT 1 FROM Member LIMIT 1', function(err){
-		if (!err){
-			connection.query('CREATE TABLE Member ( \
-				ID INT NOT NULL, \
-				Surname VARCHAR(255), \
-				FirstName VARCHAR(255), \ 
-				Sex ENUM('M','F'), \
-				ContactNumber INT(255), \
-				Address VARCHAR(255), \
-				DOB DATE, \
-				RoleCode VARCHAR(2), \
-				LoCode VARCHAR(3), \
-				CellGroupID VARCHAR(10), \
-				MinistryID VARCHAR(10), \
-		 		Consents VARCHAR(255), \
-				PRIMARY KEY (ID) ) ');
-		} else {
-			console.log("Member table already exists!");
-		}
-	})
-
+	var query = connection.query('CREATE TABLE Member (' + 
+		'ID INT NOT NULL AUTO_INCREMENT,' +
+		'Surname VARCHAR(255),' +
+		'FirstName VARCHAR(255),' + 
+		'Sex ENUM("M","F"),' +
+		'ContactNumber INT(255),' +
+		'Address VARCHAR(255),' +
+		'DOB DATE,' +
+		'RoleCode VARCHAR(2),' +
+		'LoCode VARCHAR(3),' +
+		'CellGroupID VARCHAR(10),' + 
+		'MinistryID VARCHAR(10),' +
+ 		'Consents VARCHAR(255),' +
+		'PRIMARY KEY (ID)) ');
+	console.log(query.sql);
 
 }
 
 // create non members table within db
 function create_non_members_table(connection){
-	connection.query('SELECT 1 FROM Non_Members LIMIT 1', function(err){
-		if (!err){
-			connection.query('CREATE TABLE Non_Members( \
-				ID INT NOT NULL, \
-				Surname VARCHAR(255), \ 
-				FirstName VARCHAR(255), \
-				Sex ENUM('M','F'), \
-				ContactNumber INT(255), \
-				Address VARCHAR(255), \
-				Status ENUM('Regular','Visitor'), \
-				PRIMARY KEY(ID)');		
-		} else {
-			console.log("Non Member table already exists!");
-		}
-	})
+
+	var query = connection.query('CREATE TABLE Non_Members(' +
+		'ID INT NOT NULL, ' +
+		'Surname VARCHAR(255), ' +
+		'FirstName VARCHAR(255), ' +
+		'Sex ENUM("M","F"), ' +
+		'ContactNumber INT(255), ' +
+		'Address VARCHAR(255), ' +
+		'Status ENUM("Regular","Visitor"), ' +
+		'PRIMARY KEY(ID))');
+	console.log(query.sql);		
+		
 }
 
 function create_cell_group_table(connection){
-	connection.query('SELECT 1 FROM Cell_Group LIMIT 1', function(err){
-		if (!err){
-			connection.query('CREATE TABLE Cell_Group( \
-				ID INT NOT NULL, \
-				GroupID VARCHAR(10), \
-				LeaderID INT, \
-				Venue VARCHAR(255), \
-				Meeting_Day ENUM('MON','TUE','WED','THU','FRI','SAT','SUN'), \
-				Meeting_Time TIME(), \
-				Location_Code VARCHAR(3), \
-				PRIMARY KEY(ID)');
-		} else {
-			console.log("Cell Group table already exists!");
-		}
-	})
+	var query = connection.query('CREATE TABLE Cell_Group( '+
+		'ID INT NOT NULL AUTO_INCREMENT, '+
+		'GroupID VARCHAR(10), '+
+		'LeaderID INT, '+
+		'Venue VARCHAR(255), '+
+		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), '+
+		'Meeting_Time TIME, '+
+		'Location_Code VARCHAR(3), '+
+		'PRIMARY KEY(ID))');
+	console.log(query.sql);
+
 }
 
 function create_ministry_table(connection){
-	connection.query('SELECT 1 FROM Ministry LIMIT 1', function(err){
-		if(!err){
-			connection.query('CREATE TABLE Ministry(\
-				ID INT NOT NULL, \
-				MinistryID VARCHAR(255), \
-				MinistryName VARCHAR(255), \
-				LeaderID VARCHAR(255), \
-				Venue VARCHAR(255), \
-				Meeting_Day ENUM('MON','TUE','WED','THU','FRI','SAT','SUN'), \
-				Meeting_Time TIME(), \
-				Location_Code VARCHAR(3), \
-				PRIMARY KEY(ID)'); 
-			
-		} else {
-			console.log("Ministry table alread exists!");
-		}
-	})
+	var query = connection.query('CREATE TABLE Ministry('+
+		'ID INT NOT NULL, '+
+		'MinistryID VARCHAR(255), '+
+		'MinistryName VARCHAR(255), '+
+		'LeaderID VARCHAR(255), '+
+		'Venue VARCHAR(255), '+
+		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), '+
+		'Meeting_Time TIME, '+
+		'Location_Code VARCHAR(3), '+
+		'PRIMARY KEY(ID))'); 
+	console.log(query.sql);
 }
 
 function create_school_lookup_table(connection){
-	connection.query('SELECT 1 FROM School_Lookup LIMIT 1', function(err){
-		if (!err){
-			connection.query('CREATE TABLE School_Lookup(\
-				ID INT NOT NULL, \
-				SchoolCode VARCHAR(3), \ 
-				SchoolName VARCHAR(255) \
-				LeaderID INT, \ 
-				Venue VARCHAR(255), \
-				Meeting_Day ENUM('MON','TUE','WED','THU','FRI','SAT','SUN'), \
-				Meeting_Time TIME(), \
-				Location_Code VARCHAR(3), \
-				PRIMARY KEY(ID)'); 
-		} else {
-			console.log("School_Lookup table already exists!");
-		}
+
+	var query = connection.query('CREATE TABLE School_Lookup(' +
+		'ID INT NOT NULL, ' +
+		'SchoolCode VARCHAR(3), ' +
+		'SchoolName VARCHAR(255), ' +
+		'LeaderID INT, ' +
+		'Venue VARCHAR(255), ' +
+		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), ' +
+		'Meeting_Time TIME, ' +
+		'Location_Code VARCHAR(3), ' +
+		'PRIMARY KEY(ID))'); 
+	console.log(query.sql);
 		
-	})
 }
 
 function create_location_lookup_table(connection){
-	connection.query('SELECT 1 FROM Location_Lookup LIMIT 1', function(err){
-		if (!err){
 
-			connection.query('CREATE TABLE Location_Lookup(\
-				ID INT NOT NULL, \ 
-				Loc_Code VARCHAR(255), \
-				Location VARCHAR(255), \
-				PRIMARY KEY(ID)');
-			
-		} else {
-			console.log("Location_Lookup table already exists!");
-		}
-	})
+	var query = connection.query('CREATE TABLE Location_Lookup( ' +
+		'ID INT NOT NULL, ' +
+		'Loc_Code VARCHAR(255), ' +
+		'Location VARCHAR(255), ' +
+		'PRIMARY KEY(ID))');
+	console.log(query.sql);
+
 }
 
 function create_role_lookup_table(connection){
-	connection.query('SELECT 1 FROM Role_Lookup LIMIT 1', function(err){
-		if (!err){	
-			connection.query('CREATE TABLE Role_Lookup( \
-				ID INT NOT NULL, \
-				Role_Code VARCHAR(255), \
-				Role VARCHAR(255), \
-				PRIMARY KEY(ID)');
-		} else {
-			console.log("Role_Lookup table already exists!");
-		}
-	})
+
+	var query = connection.query('CREATE TABLE Role_Lookup( ' +
+		'ID INT NOT NULL, ' +
+		'Role_Code VARCHAR(255), ' +
+		'Role VARCHAR(255), ' +
+		'PRIMARY KEY(ID))');
+	console.log(query.sql);
 }
 
 function create_student_table(connection){
-	connection.query('SELECT 1 FROM Student LIMIT 1', function(err){
-		if (!err){
-		connection.query('CREATE TABLE Student( \
-			ID INT NOT NULL, \
-			Student_ID INT, \
-			Surname VARCHAR(255), \
-			FirstName VARCHAR(255), \
-			DOB DATE, \
-			Class VARCHAR(255), \
-			Teacher INT, \
-			SchoolCode VARCHAR(255), \
-			MotherName VARCHAR(255), \
-			FatherName VARCHAR(255), \
-			Is_Christian ENUM('Y','N'), \
-			PRIMARY KEY(ID)');
-		} else {
-		console.log("Student table already exists!");
-		} 	
-	})
+	
+	var query = connection.query('CREATE TABLE Student( '+
+			'ID INT NOT NULL, '+
+			'Student_ID INT, '+
+			'Surname VARCHAR(255), '+
+			'FirstName VARCHAR(255), '+
+			'DOB DATE, '+
+			'Class VARCHAR(255), '+
+			'Teacher INT, '+
+			'SchoolCode VARCHAR(255), '+
+			'MotherName VARCHAR(255), '+
+			'FatherName VARCHAR(255), '+
+			'Is_Christian ENUM("Y","N"), '+
+			'PRIMARY KEY(ID))');
+	console.log(query.sql);
 }
-
-
 
 // Selecting and displaying entire table name 
 function query_table(connection , table_name){
@@ -193,10 +155,21 @@ function query_table(connection , table_name){
 			console.log('The solution is', rows);
 		else 
 			console.log('Error while performing query');
-	}
+	})
 }
 
+connect_db(con);
 
-connection.end();
+if (FLAG == 1 ){
+create_member_table(con);
+create_non_members_table(con);
+create_cell_group_table(con); 
+create_ministry_table(con);
+create_school_lookup_table(con);
+create_location_lookup_table(con);
+create_role_lookup_table(con);
+create_student_table(con);	
+}
 
-module.exports = connection; 
+con.end();
+
