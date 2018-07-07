@@ -4,7 +4,7 @@ var FLAG = 1; //  Debug FLAG for setting up database at the start
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'doublevision',
+	password: 'admin',
 	database: 'church'
 })
 
