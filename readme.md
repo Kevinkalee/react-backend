@@ -9,9 +9,9 @@ Follow these steps to set up your environment on Linux Ubuntu
 
 ```
 sudo apt install npm
-npm install -g express-generator
-npm install -g create-react-app
-npm install mysql
+sudp npm install -g express-generator
+sudo npm install -g create-react-app
+sudo npm install mysql
 
 ```
 
@@ -19,8 +19,9 @@ To start the app, from the root folder run:
 ```
 PORT=3001 node bin/www
 ```
-Start the React development server by running :
+Start the React development server by going into client folder and running :
 
 ```
+sudo npm install
 npm start
 ```
