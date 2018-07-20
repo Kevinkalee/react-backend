@@ -1,15 +1,15 @@
 var mysql = require('mysql')
-var FLAG = 0; //  Debug FLAG for setting up database at the start 
+var FLAG = 1; //  Debug FLAG for setting up database at the start 
 // Setting up database connection parameters
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'admin',
+	password: 'Administrator3!',
 	database: 'church'
 })
 
 // Testing connection to database
-function connect_db(connection){
+function connect(connection){
 	connection.connect(function(err){
 		if (!err) {
 			console.log("Database is connected ...");
@@ -151,8 +151,10 @@ function create_student_table(connection){
 // Selecting and displaying entire table name 
 function query_table(connection , table_name){
 	connection.query('SELECT * FROM ' + table_name , function(err, rows, fields){
-		if(!err) 
-			console.log('The solution is', rows);
+		if(!err){ 
+			console.log( rows);
+			return rows; 
+		}
 		else 
 			console.log('Error while performing query');
 	})
@@ -184,18 +186,21 @@ var pastor = {
 };
 
 
-connect_db(con);
-insert_entry(con, pastor);
-if (FLAG == 1 ){ // only use for debugging purposes
-create_member_table(con);
-create_non_members_table(con);
-create_cell_group_table(con); 
-create_ministry_table(con);
-create_school_lookup_table(con);
-create_location_lookup_table(con);
-create_role_lookup_table(con);
-create_student_table(con);	
-}
+// connect(con);
+// if (FLAG == 1 ){ // only use for debugging purposes
+// 	create_member_table(con);
+// 	create_non_members_table(con);
+// 	create_cell_group_table(con); 
+// 	create_ministry_table(con);
+// 	create_school_lookup_table(con);
+// 	create_location_lookup_table(con);
+// 	create_role_lookup_table(con);
+// 	create_student_table(con);	
+// }
+// insert_entry(con, pastor);
+// query_table(con,'Member');
+// con.end();
 
-con.end();
-
+module.exports.query_table = query_table;
+// module.exports.con = con; 
+module.exports.connect= connect;
