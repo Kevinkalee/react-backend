@@ -17,7 +17,15 @@ database.connect(connection);
 // Listen to GET request from client
 app.get('/', function(req ,res,next){
     // postsent data
-    var query =  database.query_table(connection , 'Member');
+    connection.query('SELECT * FROM ' + table_name , function(err, rows, fields){
+		if(!err){ 
+			console.log(rows);
+			return rows; 
+		}
+		else 
+			console.log('Error while performing query');
+	})
+
     res.end('Sucess');
 
 });
