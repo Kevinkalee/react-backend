@@ -3,23 +3,27 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  state = {users: []}
-
-  componentDidMount(){
-    fetch('/users')
-    .then(res=> res.json())
-    .then(users => this.setState({users}));
+  state = {
+    members: []
   }
 
+  componentDidMount(){
+    this.getMembers();
+  }
 
+  getMembers = _=> {
+    fetch('http://localhost:3001/members')
+    .then(response =>response.json())
+    .then(response => this.setState({ members: response.data }))
+    .catch(err =>console.error(err))
+  }
+  renderMember = ({id,FirstName,Surname}) => <div key={id}>{FirstName} {Surname}</div>
   render() {
+    const {members } = this.state;
     return (
       <div className="App">
-        <h1>Gravity Members</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.name}</div>
-          )
-        }
+        <h1>Church Members</h1>
+        {members.map(this.renderMember)}
       </div>
     );
   }
