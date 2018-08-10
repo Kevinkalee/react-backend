@@ -19,7 +19,6 @@ npm install cors
 To start the app, from the root folder run:
 ```
 node bin/www
-```
 Start the React development server by going into client folder and running :
 
 ```
