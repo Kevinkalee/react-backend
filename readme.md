@@ -11,14 +11,14 @@ Follow these steps to set up your environment on Linux Ubuntu.
 sudo apt install npm
 npm install express-generator
 npm install create-react-app
-npm install mysql
-npm install cors
-
+npm install mysql cors @material-ui/core
 ```
+To start the back end app, from the root folder run:
 
-To start the app, from the root folder run:
 ```
 node bin/www
+```
+
 Start the React development server by going into client folder and running :
 
 ```
