@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import Card from 'material-ui/Card/';
+import CardText from 'material-ui/Card/CardText';
+import CardHeader from "./components/Card/CardHeader.jsx";
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button'; 
+
+// import CardHeader from 'material-ui/Card/CardHeader';
+// import Card from "./components/Card/Card.jsx";
+// import CardBody from "./components/Card/CardBody.jsx";
+// import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import logo from './logo.svg';
 import './App.css';
-
 import Table from "./Table"
-// Needed for onTouchTap
-injectTapEventPlugin();
 
+const styles = {
+  fabStyle:{
+    verticalAlign: 'middle',
+    position: 'relative',
+    top: 20,
+
+  }
+};
 class App extends Component {
   state = {
     data: [],
@@ -28,12 +44,19 @@ class App extends Component {
   // renderMember = ({id,FirstName,Surname}) => <div key={id}>{FirstName} {Surname}</div>
 
   render() {
-    // const {data} = this.state;
+    const {classes} = this.props;
     return (
       <MuiThemeProvider>
         <div className="App">
-          <h1>Church Members</h1>
-  
+          <h1>CGCD Database</h1>
+          <Card>
+          <CardHeader color="info">
+            <h4 >Church Members</h4>
+            <p >
+              This table contains a list of all members within CGCD.
+            </p>
+          </CardHeader>
+          <CardText>
         <Table
           data={this.state.data}
           header={[
@@ -82,12 +105,13 @@ class App extends Component {
               prop: "Consents"
             }
 
-
-
-
           ]}
-          
           />
+          </CardText>
+          </Card>
+          <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} >
+            <AddIcon/>
+            </Button >
       </div>
       </MuiThemeProvider>
     );
