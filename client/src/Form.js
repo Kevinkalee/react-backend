@@ -31,7 +31,14 @@ class TextFields extends React.Component {
         firstName: "",
         lastName: "",
         sex: "",
-        contactNumber: ""
+        contactNumber: "",
+        address: "",
+        DOB: "",
+        RoleCode: "",
+        LoCode: "",
+        CellGroupID: "",
+        MinistryID: "",
+        Consents: ""
     };
 
     handleChange = name => event => {
@@ -79,6 +86,69 @@ class TextFields extends React.Component {
                 floatingLabelText="Contact Number"
                 value={this.state.contactNumber}
                 onChange={this.handleChange('contactNumber')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="address"
+                hintText="Address"
+                floatingLabelText="Address"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('address')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="DOB"
+                hintText="DOB"
+                floatingLabelText="DOB"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('DOB')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="RoleCode"
+                hintText="Role Code"
+                floatingLabelText="Role Code"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('RoleCode')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="LoCode"
+                hintText="LoCode"
+                floatingLabelText="LoCode"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('LoCode')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="CellGroupID"
+                hintText="Cell Group ID"
+                floatingLabelText="Cell Group ID"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('CellGroupID')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="MinistryID"
+                hintText="Ministry ID"
+                floatingLabelText="Ministry ID"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('MinistryID')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="Consents"
+                hintText="Consents"
+                floatingLabelText="Consents"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('Consents')}
                 floatingLabelFixed
             />
             <br />

@@ -96,7 +96,7 @@ class App extends Component {
               prop: "MinistryID"
             },
             {
-              name: "Consensts",
+              name: "Consents",
               prop: "Consents"
             }
 
