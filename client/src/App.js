@@ -11,7 +11,7 @@ import logo from './logo.svg';
 import './App.css';
 import Table from "./Table";
 import Form from "./Form";
-
+import Popup from "reactjs-popup";
 
 const styles = {
   fabStyle:{
@@ -23,10 +23,6 @@ const styles = {
 class App extends Component {
   state = {
     data: [],
-    // firstName: "",
-    // lastName: "",
-    // sex: "",
-    // contactNumber: ""
   }
   
   componentDidMount(){
@@ -109,11 +105,21 @@ class App extends Component {
           </CardText>
           </Card>
           <br/>
-          <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} >
+
+          <Popup 
+            trigger ={
+            <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} >
             <AddIcon/>
             </Button >
+            }
+            modal
+            closeOnDocumentClick
+            >
+            <span> <Form/> </span>
+            </Popup>
             <br/>
-            <Form/>
+
+            
       </div>
       </MuiThemeProvider>
     );
