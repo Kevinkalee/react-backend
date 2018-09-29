@@ -7,27 +7,26 @@ import CardText from 'material-ui/Card/CardText';
 import CardHeader from "./components/Card/CardHeader.jsx";
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button'; 
-
-// import CardHeader from 'material-ui/Card/CardHeader';
-// import Card from "./components/Card/Card.jsx";
-// import CardBody from "./components/Card/CardBody.jsx";
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import logo from './logo.svg';
 import './App.css';
-import Table from "./Table"
+import Table from "./Table";
+import Form from "./Form";
+
 
 const styles = {
   fabStyle:{
     verticalAlign: 'middle',
-    position: 'relative',
-    top: 20,
-
+    position: 'relative'
   }
 };
+
 class App extends Component {
   state = {
     data: [],
+    // firstName: "",
+    // lastName: "",
+    // sex: "",
+    // contactNumber: ""
   }
   
   componentDidMount(){
@@ -109,9 +108,12 @@ class App extends Component {
           />
           </CardText>
           </Card>
+          <br/>
           <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} >
             <AddIcon/>
             </Button >
+            <br/>
+            <Form/>
       </div>
       </MuiThemeProvider>
     );
