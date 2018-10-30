@@ -26,20 +26,23 @@ const styles = theme => ({
 
 class TextFields extends React.Component {
 
-     
-    state = {
-        firstName: "",
-        lastName: "",
-        sex: "",
-        contactNumber: "",
-        address: "",
-        DOB: "",
-        RoleCode: "",
-        LoCode: "",
-        CellGroupID: "",
-        MinistryID: "",
-        Consents: ""
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            lastName: "",
+            firstName: "",
+            sex: "",
+            contactNumber: "",
+            address: "",
+            DOB: "",
+            RoleCode: "",
+            LoCode: "",
+            CellGroupID: "",
+            MinistryID: "",
+            Consents: "",
+    
+        };
+    } 
 
     handleChange = name => event => {
         this.setState({
@@ -47,6 +50,37 @@ class TextFields extends React.Component {
         });
       };
     
+    handleSubmit(event)  {
+        event.preventDefault()
+        var data = {
+            Surname  : this.state.lastName,
+            FirstName : this.state.firstName,
+            Sex : this.state.sex,
+            ContactNumber : this.state.contactNumber,
+            Address : this.state.address,
+            DOB : this.state.DOB,
+            CellGroupID : this.state.CellGroupID,
+            RoleCode : this.state.RoleCode,
+            LoCode : this.state.LoCode,
+            MinistryID : this.state.MinistryID,
+            Consents : this.state.Consents,
+        }
+
+        console.log(data)
+        fetch('http://localhost:3001/newmember' , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }).then(function(response){
+        return response.json();
+        }).then(function(body){
+            console.log(body);
+        });
+        this.props.callbackFromParent(false)   
+    }
+
     render () {
         const { classes } = this.props;
 
@@ -93,7 +127,7 @@ class TextFields extends React.Component {
                 name="address"
                 hintText="Address"
                 floatingLabelText="Address"
-                value={this.state.contactNumber}
+                value={this.state.address}
                 onChange={this.handleChange('address')}
                 floatingLabelFixed
             />
@@ -102,7 +136,7 @@ class TextFields extends React.Component {
                 name="DOB"
                 hintText="DOB"
                 floatingLabelText="DOB"
-                value={this.state.contactNumber}
+                value={this.state.DOB}
                 onChange={this.handleChange('DOB')}
                 floatingLabelFixed
             />
@@ -111,7 +145,7 @@ class TextFields extends React.Component {
                 name="RoleCode"
                 hintText="Role Code"
                 floatingLabelText="Role Code"
-                value={this.state.contactNumber}
+                value={this.state.RoleCode}
                 onChange={this.handleChange('RoleCode')}
                 floatingLabelFixed
             />
@@ -120,7 +154,7 @@ class TextFields extends React.Component {
                 name="LoCode"
                 hintText="LoCode"
                 floatingLabelText="LoCode"
-                value={this.state.contactNumber}
+                value={this.state.LoCode}
                 onChange={this.handleChange('LoCode')}
                 floatingLabelFixed
             />
@@ -129,7 +163,7 @@ class TextFields extends React.Component {
                 name="CellGroupID"
                 hintText="Cell Group ID"
                 floatingLabelText="Cell Group ID"
-                value={this.state.contactNumber}
+                value={this.state.CellGroupID}
                 onChange={this.handleChange('CellGroupID')}
                 floatingLabelFixed
             />
@@ -138,7 +172,7 @@ class TextFields extends React.Component {
                 name="MinistryID"
                 hintText="Ministry ID"
                 floatingLabelText="Ministry ID"
-                value={this.state.contactNumber}
+                value={this.state.MinistryID}
                 onChange={this.handleChange('MinistryID')}
                 floatingLabelFixed
             />
@@ -147,13 +181,13 @@ class TextFields extends React.Component {
                 name="Consents"
                 hintText="Consents"
                 floatingLabelText="Consents"
-                value={this.state.contactNumber}
+                value={this.state.Consents}
                 onChange={this.handleChange('Consents')}
                 floatingLabelFixed
             />
             <br />
             <br />
-            <RaisedButton label="Submit" onClick={e => this.onSubmit(e)} primary />
+            <RaisedButton label="Submit" onClick={e => this.handleSubmit(e)} primary />
             </form>
         )
     }

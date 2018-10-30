@@ -5,6 +5,7 @@ const port = 3001;
 
 var router = express.Router();
 const app = express();
+var bodyParser = require('body-parser');
 
 const SELECT_ALL_MEMBERS_QUERY = 'SELECT * FROM Member';
 
@@ -25,8 +26,7 @@ connection.connect(err => {
 });
 
 app.use(cors());
-
-
+app.use(bodyParser.json())
 // send a simple message to the front end
 app.get('/', (req,res) => {
     res.send('go to /members to see members')
@@ -47,6 +47,18 @@ app.get('/members', function(req ,res,next){
         }
     
 	});
+});
+
+app.post('/newmember', function(req,res){
+    member = req.body
+    console.log(req.body)
+    connection.query('INSERT INTO Member SET ?',member, (err, result)=>{
+		if (err) {
+			console.error(err);
+			return res.send(err);
+		} 
+		console.error(result);
+    })
 });
 
 app.listen(port, function(){

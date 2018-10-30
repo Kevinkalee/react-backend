@@ -13,6 +13,12 @@ import Table from "./Table";
 import Form from "./Form";
 import Popup from "reactjs-popup";
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const styles = {
   fabStyle:{
     verticalAlign: 'middle',
@@ -23,6 +29,7 @@ const styles = {
 class App extends Component {
   state = {
     data: [],
+    open: false
   }
   
   componentDidMount(){
@@ -36,7 +43,17 @@ class App extends Component {
     .catch(err =>console.error(err))
   }
 
-  // renderMember = ({id,FirstName,Surname}) => <div key={id}>{FirstName} {Surname}</div>
+  handleClickOpen = () => {
+    this.setState({open:true});
+  }
+
+  handleClose = () => {
+    this.setState({open:false});
+  }
+
+  sendStatetoForm = (openState) => {
+    this.setState({open: openState})
+  }
 
   render() {
     const {classes} = this.props;
@@ -106,19 +123,21 @@ class App extends Component {
           </Card>
           <br/>
 
-          <Popup 
-            trigger ={
-            <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} >
-            <AddIcon/>
-            </Button >
-            }
-            modal
-            closeOnDocumentClick
-            >
-            <span> <Form/> </span>
-            </Popup>
-            <br/>
+          <Button variant="fab" color ="primary" aria-label="Add" style={styles.fabStyle} onClick={this.handleClickOpen}>
+          <AddIcon/>
+          </Button>
+          <Dialog
+            open= {this.state.open}
+            onClose = {this.handleClose}
+            aria-labelledby = "form-dialog-title"
+          >
+          <DialogTitle id ="form-dialog-title">Insert Member Information</DialogTitle>
+          <DialogContent>
+            <Form callbackFromParent={this.sendStatetoForm}/>
+          </DialogContent>
+          </Dialog>
 
+      
             
       </div>
       </MuiThemeProvider>
