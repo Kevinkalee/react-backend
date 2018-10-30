@@ -1,0 +1,200 @@
+import React from "react";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const styles = theme => ({
+    container: {
+    //   display: 'flex',
+    //   flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: 200,
+    },
+    dense: {
+      marginTop: 19,
+    },
+    menu: {
+      width: 200,
+    },
+  });
+
+class TextFields extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            lastName: "",
+            firstName: "",
+            sex: "",
+            contactNumber: "",
+            address: "",
+            DOB: "",
+            RoleCode: "",
+            LoCode: "",
+            CellGroupID: "",
+            MinistryID: "",
+            Consents: "",
+    
+        };
+    } 
+
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
+    
+    handleSubmit(event)  {
+        event.preventDefault()
+        var data = {
+            Surname  : this.state.lastName,
+            FirstName : this.state.firstName,
+            Sex : this.state.sex,
+            ContactNumber : this.state.contactNumber,
+            Address : this.state.address,
+            DOB : this.state.DOB,
+            CellGroupID : this.state.CellGroupID,
+            RoleCode : this.state.RoleCode,
+            LoCode : this.state.LoCode,
+            MinistryID : this.state.MinistryID,
+            Consents : this.state.Consents,
+        }
+
+        console.log(data)
+        fetch('http://localhost:3001/newmember' , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }).then(function(response){
+        return response.json();
+        }).then(function(body){
+            console.log(body);
+        });
+        this.props.callbackFromParent(false)   
+    }
+
+    render () {
+        const { classes } = this.props;
+
+        return (
+        <form className={classes.container} noValidate autoComplete="off">    
+
+         <TextField
+                name="firstName"
+                hintText="First name"
+                floatingLabelText="First name"
+                value={this.state.firstName}
+                onChange={this.handleChange('firstName')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="lastName"
+                hintText="Last Name"
+                floatingLabelText="Last Name"
+                value={this.state.lastName}
+                onChange={this.handleChange('lastName')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="sex"
+                hintText="Sex"
+                floatingLabelText="Sex"
+                value={this.state.sex}
+                onChange={this.handleChange('sex')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="contactNumber"
+                hintText="Contact Number"
+                floatingLabelText="Contact Number"
+                value={this.state.contactNumber}
+                onChange={this.handleChange('contactNumber')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="address"
+                hintText="Address"
+                floatingLabelText="Address"
+                value={this.state.address}
+                onChange={this.handleChange('address')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="DOB"
+                hintText="DOB"
+                floatingLabelText="DOB"
+                value={this.state.DOB}
+                onChange={this.handleChange('DOB')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="RoleCode"
+                hintText="Role Code"
+                floatingLabelText="Role Code"
+                value={this.state.RoleCode}
+                onChange={this.handleChange('RoleCode')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="LoCode"
+                hintText="LoCode"
+                floatingLabelText="LoCode"
+                value={this.state.LoCode}
+                onChange={this.handleChange('LoCode')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="CellGroupID"
+                hintText="Cell Group ID"
+                floatingLabelText="Cell Group ID"
+                value={this.state.CellGroupID}
+                onChange={this.handleChange('CellGroupID')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="MinistryID"
+                hintText="Ministry ID"
+                floatingLabelText="Ministry ID"
+                value={this.state.MinistryID}
+                onChange={this.handleChange('MinistryID')}
+                floatingLabelFixed
+            />
+            <br />
+            <TextField
+                name="Consents"
+                hintText="Consents"
+                floatingLabelText="Consents"
+                value={this.state.Consents}
+                onChange={this.handleChange('Consents')}
+                floatingLabelFixed
+            />
+            <br />
+            <br />
+            <RaisedButton label="Submit" onClick={e => this.handleSubmit(e)} primary />
+            </form>
+        )
+    }
+}
+
+TextFields.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  
+  export default withStyles(styles)(TextFields);

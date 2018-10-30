@@ -10,16 +10,7 @@ router.get('/', function(req, res, next) {
   res.json(Members)
 
   database.con.end()
-//   res.json([{
-// 	  id: 1,
-//   	username: "Kevin"
-// },{
-// 	id: 2, 
-// 	username: "Stephanie"
-// }, {
-// 	id: 3,
-// 	username: "Nathan"
-// }])
+
 });
 
 
