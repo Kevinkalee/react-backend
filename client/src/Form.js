@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
     container: {
     //   display: 'flex',
-    //   flexWrap: 'wrap',
+      flexWrap: 'wrap',
     },
     textField: {
       marginLeft: theme.spacing.unit,
@@ -89,38 +92,36 @@ class TextFields extends React.Component {
 
          <TextField
                 name="firstName"
-                hintText="First name"
                 floatingLabelText="First name"
                 value={this.state.firstName}
                 onChange={this.handleChange('firstName')}
-                floatingLabelFixed
+      
             />
             <br />
             <TextField
                 name="lastName"
-                hintText="Last Name"
                 floatingLabelText="Last Name"
                 value={this.state.lastName}
                 onChange={this.handleChange('lastName')}
-                floatingLabelFixed
             />
             <br />
-            <TextField
-                name="sex"
-                hintText="Sex"
-                floatingLabelText="Sex"
+            <InputLabel htmlFor="Gender helper">Sex</InputLabel>
+            <Select 
                 value={this.state.sex}
                 onChange={this.handleChange('sex')}
-                floatingLabelFixed
-            />
+                input={<Input name="Sex" id ="gender helper"/>}
+            >
+                <MenuItem value="">
+                </MenuItem>
+                <MenuItem value={"M"}>M</MenuItem>
+                <MenuItem value={"F"}>F</MenuItem>
+            </Select>
             <br />
             <TextField
                 name="contactNumber"
-                hintText="Contact Number"
                 floatingLabelText="Contact Number"
                 value={this.state.contactNumber}
                 onChange={this.handleChange('contactNumber')}
-                floatingLabelFixed
             />
             <br />
             <TextField
@@ -129,61 +130,51 @@ class TextFields extends React.Component {
                 floatingLabelText="Address"
                 value={this.state.address}
                 onChange={this.handleChange('address')}
-                floatingLabelFixed
+                
             />
             <br />
             <TextField
                 name="DOB"
-                hintText="DOB"
                 floatingLabelText="DOB"
                 value={this.state.DOB}
+                type="date"
                 onChange={this.handleChange('DOB')}
                 floatingLabelFixed
             />
             <br />
             <TextField
                 name="RoleCode"
-                hintText="Role Code"
                 floatingLabelText="Role Code"
                 value={this.state.RoleCode}
                 onChange={this.handleChange('RoleCode')}
-                floatingLabelFixed
             />
             <br />
             <TextField
                 name="LoCode"
-                hintText="LoCode"
                 floatingLabelText="LoCode"
                 value={this.state.LoCode}
                 onChange={this.handleChange('LoCode')}
-                floatingLabelFixed
             />
             <br />
             <TextField
                 name="CellGroupID"
-                hintText="Cell Group ID"
                 floatingLabelText="Cell Group ID"
                 value={this.state.CellGroupID}
                 onChange={this.handleChange('CellGroupID')}
-                floatingLabelFixed
             />
             <br />
             <TextField
                 name="MinistryID"
-                hintText="Ministry ID"
                 floatingLabelText="Ministry ID"
                 value={this.state.MinistryID}
                 onChange={this.handleChange('MinistryID')}
-                floatingLabelFixed
             />
             <br />
             <TextField
                 name="Consents"
-                hintText="Consents"
                 floatingLabelText="Consents"
                 value={this.state.Consents}
                 onChange={this.handleChange('Consents')}
-                floatingLabelFixed
             />
             <br />
             <br />
