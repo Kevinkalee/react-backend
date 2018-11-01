@@ -36,6 +36,12 @@ class App extends Component {
     this.getMembers();
   }
 
+  componentDidUpdate(prevState){
+    if (prevState.state !== this.state){
+      this.getMembers();
+    }
+  }
+
   getMembers = _ => {
     fetch('http://localhost:3001/members')
     .then(response =>response.json())
