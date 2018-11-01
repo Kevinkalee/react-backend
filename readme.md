@@ -4,21 +4,22 @@ This repository contains a sample backend for connecting a react app with mysql 
 
 ## Dependencies
 
-Follow these steps to set up your environment on Linux Ubuntu
+Follow these steps to set up your environment on Linux Ubuntu. 
 
 
 ```
 sudo apt install npm
-sudp npm install -g express-generator
-sudo npm install -g create-react-app
-sudo npm install mysql
+npm install express-generator
+npm install create-react-app
+npm install mysql cors @material-ui/core
+npm install reactjs-popup
+```
+To start the back end app, from the root folder run:
 
 ```
+node bin/www
+```
 
-To start the app, from the root folder run:
-```
-PORT=3001 node bin/www
-```
 Start the React development server by going into client folder and running :
 
 ```

@@ -4,7 +4,7 @@ var FLAG = 1; //  Debug FLAG for setting up database at the start
 var con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'Administrator3!',
+	password: 'admin',
 	database: 'church'
 })
 
@@ -36,7 +36,7 @@ function create_member_table(connection){
 		'Surname VARCHAR(255),' +
 		'FirstName VARCHAR(255),' + 
 		'Sex ENUM("M","F"),' +
-		'ContactNumber VARCHAR(255),' +
+		'ContactNumber VARCHAR(15),' +
 		'Address VARCHAR(255),' +
 		'DOB DATE,' +
 		'RoleCode VARCHAR(2),' +
@@ -184,7 +184,20 @@ var pastor = {
 	MinistryID: 'M1100',
 	Consents: 'C1,C2,C3,C4,C5,S1,S2,S3,S4'
 };
+var church_member ={
+	Surname: 'Lee',
+	FirstName: 'Kevin',
+	Sex: 'M',
+	ContactNumber: '0871111111',
+	Address: 'Castleknock, D15',
+	DOB: '1994-02-15',
+	CellGroupID: '2',
+	RoleCode: 'M',
+	LoCode: 'E',
+	MinistryID: 'M1110',
+	Consents: 'C1,C2,C3,C4,C5,S1,S2,S3,S4'
 
+}
 
 // connect(con);
 // if (FLAG == 1 ){ // only use for debugging purposes
@@ -197,8 +210,9 @@ var pastor = {
 // 	create_role_lookup_table(con);
 // 	create_student_table(con);	
 // }
-// insert_entry(con, pastor);
-// query_table(con,'Member');
+// // insert_entry(con,pastor);
+// insert_entry(con, church_member);	
+// // query_table(con,'Member');
 // con.end();
 
 module.exports.query_table = query_table;
