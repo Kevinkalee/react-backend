@@ -6,7 +6,6 @@ router.get('/', function(req, res, next) {
   // res.send('respond with a resource');
   database.connect_db(database.con);
   var Members = database.query_table(database.con, 'Member');
-//   Members = JSON.stringify(Members);
   res.json(Members)
 
   database.con.end()
