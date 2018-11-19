@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card from 'material-ui/Card/';
 import CardText from 'material-ui/Card/CardText';
-import CardHeader from "./components/Card/CardHeader.jsx";
+import CardHeader from 'material-ui/Card/CardHeader'
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -16,8 +16,12 @@ import { Link, withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     container: {
-    //   display: 'flex',
+      display: 'flex',
+      flexFlow: 'column',
+      flexDirection: 'column',
       flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     textField: {
       marginLeft: theme.spacing.unit,
@@ -32,6 +36,13 @@ const styles = theme => ({
     },
   });
 
+const headerStyles = ({
+    cardHeaderStyle:{
+        background: '#42a4f4',
+        color: 'white'
+      },
+    
+})
   
 class TextFields extends React.Component {
 
@@ -57,6 +68,7 @@ class TextFields extends React.Component {
         }
 
         console.log(data)
+        this.props.history.push('/Database')
         // fetch('http://localhost:3001/login' , {
         //     method: 'POST',
         //     headers: {
@@ -80,7 +92,7 @@ class TextFields extends React.Component {
         <div className="App">
             <h1>CGCD Database</h1>
             <Card>
-            <CardHeader color="info">
+            <CardHeader style={headerStyles.cardHeaderStyle}>
             <h4 >Welcome to CGCD church management program</h4>
             <p >
                Please login with your Email and Password
@@ -90,30 +102,30 @@ class TextFields extends React.Component {
             </CardText>
             </Card>
             </div>
+
+            <div>
+                <form className={classes.container} noValidate autoComplete="off">    
+                
+                <TextField
+                        name="email"
+                        floatingLabelText="Email"
+                        value={this.state.firstName}
+                        onChange={this.handleChange('email')}
             
-        
-        <form className={classes.container} noValidate autoComplete="off">    
-        
-         <TextField
-                name="email"
-                floatingLabelText="Email"
-                value={this.state.firstName}
-                onChange={this.handleChange('email')}
-      
-            />
-            <br />
-            <TextField
-                name="password"
-                floatingLabelText="Password"
-                value={this.state.password}
-                onChange={this.handleChange('Password')}
-            />
-            <br />
-           
-            
-            <RaisedButton component ={Link} to="/Database" label="Submit" onClick={e => this.handleSubmit(e)} primary />
-            <li><Link to='Database'>Hello</Link></li>
-            </form>
+                    />
+                    <br />
+                    <TextField
+                        name="password"
+                        floatingLabelText="Password"
+                        value={this.state.password}
+                        onChange={this.handleChange('Password')}
+                    />
+                    <br />
+                
+                    
+                    <RaisedButton component ={Link} to="/Database" label="Submit" onClick={e => this.handleSubmit(e)} primary />
+                    </form>
+            </div>
         </MuiThemeProvider>
         )
     }

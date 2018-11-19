@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card from 'material-ui/Card/';
 import CardText from 'material-ui/Card/CardText';
-import CardHeader from "./components/Card/CardHeader.jsx";
+import CardHeader from 'material-ui/Card/CardHeader'
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button'; 
 import logo from './logo.svg';
@@ -21,7 +21,11 @@ const styles = {
   fabStyle:{
     verticalAlign: 'middle',
     position: 'relative'
+  }, 
+  cardHeaderStyle:{
+    background: '#42a4f4'
   }
+
 };
 
 class Database extends Component {
@@ -66,7 +70,7 @@ class Database extends Component {
         <div className="App">
           <h1>CGCD Database</h1>
           <Card>
-          <CardHeader color="info">
+          <CardHeader style={styles.cardHeaderStyle}>
             <h4 >Church Members</h4>
             <p >
               This table contains a list of all members within CGCD.
