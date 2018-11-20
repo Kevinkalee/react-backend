@@ -91,16 +91,6 @@ class TextFields extends React.Component {
         <MuiThemeProvider>
         <div className="App">
             <h1>CGCD Database</h1>
-            <Card>
-            <CardHeader style={headerStyles.cardHeaderStyle}>
-            <h4 >Welcome to CGCD church management program</h4>
-            <p >
-               Please login with your Email and Password
-            </p>
-            </CardHeader>
-            <CardText>
-            </CardText>
-            </Card>
             </div>
 
             <div>

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Card from 'material-ui/Card/';
-import CardText from 'material-ui/Card/CardText';
-import CardHeader from 'material-ui/Card/CardHeader'
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button'; 
 import logo from './logo.svg';
@@ -16,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Appbar from "./Navbar"
 
 const styles = {
   fabStyle:{
@@ -24,8 +22,10 @@ const styles = {
   }, 
   cardHeaderStyle:{
     background: '#42a4f4'
+  },
+  divStyle:{
+    margin: '4% 0% 0% 14%'
   }
-
 };
 
 class Database extends Component {
@@ -67,16 +67,12 @@ class Database extends Component {
     const {classes} = this.props;
     return (
       <MuiThemeProvider>
-        <div className="App">
-          <h1>CGCD Database</h1>
-          <Card>
-          <CardHeader style={styles.cardHeaderStyle}>
-            <h4 >Church Members</h4>
-            <p >
-              This table contains a list of all members within CGCD.
-            </p>
-          </CardHeader>
-          <CardText>
+      <div>
+        <Appbar>
+          </Appbar>
+        </div>
+
+        <div className="App" style={styles.divStyle}>
         <Table
           data={this.state.data}
           header={[
@@ -127,9 +123,7 @@ class Database extends Component {
 
           ]}
           />
-          </CardText>
-          </Card>
-          <br/>
+
 
           <Button variant="fab" color ="primary" aria-label="Add" style={styles.fabStyle} onClick={this.handleClickOpen}>
           <AddIcon/>
