@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const port = 3001; 
+require('dotenv').config()
 
 var router = express.Router();
 const app = express();
@@ -11,10 +12,10 @@ const SELECT_ALL_MEMBERS_QUERY = 'SELECT * FROM Member';
 
 // set up connection to database
 const connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password: 'admin',
-    database: 'church'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_TABLE
 });
 
 
