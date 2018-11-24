@@ -9,6 +9,9 @@ const app = express();
 var bodyParser = require('body-parser');
 
 const SELECT_ALL_MEMBERS_QUERY = 'SELECT * FROM Member';
+const SELECT_ALL_NONMEMBER_QUERY = 'SELECT * FROM Non_Members';
+const SELECT_ALL_STUDENTS_QUERY = 'SELECT * FROM Student';
+const SELECT_ALL_CELL_GROUP_QUERY = 'SELECT * FROM Cell_Group';
 
 // set up connection to database
 const connection = mysql.createConnection({
@@ -35,7 +38,7 @@ app.get('/', (req,res) => {
 
 
 // Listen to GET request from client
-app.get('/members', function(req ,res,next){
+app.get('/Members', function(req ,res,next){
     // postsent data
     connection.query(SELECT_ALL_MEMBERS_QUERY ,(err,results)=>{
         if (err){
@@ -49,6 +52,52 @@ app.get('/members', function(req ,res,next){
     
 	});
 });
+
+app.get('/Nonmembers', function(req ,res,next){
+    // postsent data
+    connection.query(SELECT_ALL_NONMEMBER_QUERY ,(err,results)=>{
+        if (err){
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data: results
+            }) 
+        }
+    
+	});
+});
+
+app.get('/ChineseSchool', function(req ,res,next){
+    // postsent data
+    connection.query(SELECT_ALL_STUDENTS_QUERY ,(err,results)=>{
+        if (err){
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data: results
+            }) 
+        }
+    
+	});
+});
+
+app.get('/CellGroup', function(req ,res,next){
+    // postsent data
+    connection.query(SELECT_ALL_CELL_GROUP_QUERY ,(err,results)=>{
+        if (err){
+            return res.send(err);
+        }
+        else {
+            return res.json({
+                data: results
+            }) 
+        }
+    
+	});
+});
+
 
 app.post('/newmember', function(req,res){
     member = req.body

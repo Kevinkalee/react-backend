@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import FaceIcon from '@material-ui/icons/Face';
 
 const drawerWidth = 240;
@@ -37,42 +35,92 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-function ClippedDrawer(props) {
-  const { classes } = props;
+class Navbar extends React.Component {
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Chinese Gospel Church Database System
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.toolbar} />
-        <List>
-          {['Church Members', 'Non Members', 'Chinese School', 'Cell Group'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <FaceIcon /> : <FaceIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+  constructor(props){
+    super(props);
+} 
+  access_members_table(event){
+    event.preventDefault()
+    this.props.callbackFromParent(0)
+  }
+
+  access_non_members_table(event){
+    event.preventDefault()
+    this.props.callbackFromParent(1)
+  }
+
+  access_school_table(event){
+    event.preventDefault()
+    this.props.callbackFromParent(2)
+  }
+
+  access_cell_group_table(event){
+    event.preventDefault()
+    this.props.callbackFromParent(3)
+  }
+
+
+  render(){
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" color="inherit" noWrap>
+              Chinese Gospel Church Database System
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.toolbar} />
+          <List>
+
+            <ListItem button  onClick={e => this.access_members_table(e)} >
+              <ListItemIcon>
+                <FaceIcon/>
+              </ListItemIcon>
+              <ListItemText primary= "Church Members"/> 
             </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </div>
-  );
+
+            <ListItem button onClick={e => this.access_non_members_table(e)}>
+              <ListItemIcon>
+                <FaceIcon/>
+              </ListItemIcon>
+              <ListItemText primary= "Non Members"/> 
+            </ListItem>
+
+            <ListItem button onClick={e => this.access_school_table(e)}>
+              <ListItemIcon>
+                <FaceIcon/>
+              </ListItemIcon>
+              <ListItemText primary= "Chinese School"/> 
+            </ListItem>
+
+            <ListItem button onClick={e => this.access_cell_group_table(e)}>
+              <ListItemIcon>
+                <FaceIcon/>
+              </ListItemIcon>
+              <ListItemText primary= "Cell Group"/> 
+            </ListItem> 
+    
+          </List>
+        </Drawer>
+      </div>
+    );
+  }
 }
 
-ClippedDrawer.propTypes = {
+Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ClippedDrawer);
+export default withStyles(styles)(Navbar);

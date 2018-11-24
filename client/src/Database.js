@@ -32,6 +32,7 @@ class Database extends Component {
   state = {
     data: [],
     open: false,
+    table_num: 0
   }
   
   componentDidMount(){
@@ -39,13 +40,49 @@ class Database extends Component {
   }
 
   componentDidUpdate(prevProps ,prevState){
-    if (prevState.open !== this.state.open){
-      this.getMembers();
+    if (prevState.open !== this.state.open || prevState.table_num !== this.state.table_num){
+      switch(this.state.table_num){
+        case 0:
+          this.getMembers();
+          break;
+        case 1:
+          this.getNonMembers();
+          break;
+        case 2:
+          this.getChineseSchool();
+          break;
+        case 3:
+          this.getCellGroup();
+          break;
+        default:
+          this.getMembers();
+      }
     }
   }
 
   getMembers = _ => {
-    fetch('http://localhost:3001/members')
+    fetch('http://localhost:3001/Members')
+    .then(response =>response.json())
+    .then(response => this.setState({ data: response.data }))
+    .catch(err =>console.error(err))
+  }
+
+  getNonMembers = _ => {
+    fetch('http://localhost:3001/Nonmembers')
+    .then(response =>response.json())
+    .then(response => this.setState({ data: response.data }))
+    .catch(err =>console.error(err))
+  }
+
+  getChineseSchool = _ => {
+    fetch('http://localhost:3001/ChineseSchool')
+    .then(response =>response.json())
+    .then(response => this.setState({ data: response.data }))
+    .catch(err =>console.error(err))
+  }
+
+  getCellGroup = _ => {
+    fetch('http://localhost:3001/CellGroup')
     .then(response =>response.json())
     .then(response => this.setState({ data: response.data }))
     .catch(err =>console.error(err))
@@ -62,13 +99,17 @@ class Database extends Component {
   sendStatetoForm = (openState) => {
     this.setState({open: openState})
   }
+  
+  sendStatetoNavbar = (table_state) => {
+    this.setState({table_num: table_state})
+  }
 
   render() {
     const {classes} = this.props;
     return (
       <MuiThemeProvider>
       <div>
-        <Appbar>
+        <Appbar callbackFromParent={this.sendStatetoNavbar}>
           </Appbar>
         </div>
 
