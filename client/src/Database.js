@@ -45,9 +45,31 @@ class Database extends Component {
       { name: "Cell Group ID",  prop: "CellGroupID"},
       { name: "Ministry ID",    prop: "MinistryID"},
       { name: "Consents",       prop: "Consents"}
-    ]
+    ],
+    editIdx: -1
   }
-  
+  handleRemove = i => {
+    this.setState(state => ({
+      data: state.data.filter((row, j) => j !== i)
+    }));
+  };
+
+  startEditing = i => {
+    this.setState({ editIdx: i}); 
+  };
+
+  stopEditing = () => {
+    this.setState({ editIdx: -1 });
+  };
+
+  handleChange = (e, name, i) => {
+    const { value } = e.target;
+    this.setState(state => ({
+      data: state.data.map(
+        (row, j) => (j === i ? { ...row, [name]: value } : row)
+      )
+    }));
+  };
   componentDidMount(){
     this.getMembers();
   }
@@ -184,6 +206,11 @@ class Database extends Component {
 
         <div className="App" style={styles.divStyle}>
         <Table
+          handleRemove={this.handleRemove}
+          startEditing={this.startEditing}
+          editIdx={this.state.editIdx}
+          stopEditing={this.stopEditing}
+          handleChange={this.handleChange}
           header={this.state.header}
           data={this.state.data}
           />
