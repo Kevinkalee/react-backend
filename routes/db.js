@@ -1,11 +1,12 @@
 var mysql = require('mysql')
+require('dotenv').config()
 var FLAG = 1; //  Debug FLAG for setting up database at the start 
 // Setting up database connection parameters
 var con = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'admin',
-	database: 'church'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_TABLE
 })
 
 // Testing connection to database
@@ -210,9 +211,9 @@ var church_member ={
 // 	create_role_lookup_table(con);
 // 	create_student_table(con);	
 // }
-// // insert_entry(con,pastor);
+// insert_entry(con,pastor);
 // insert_entry(con, church_member);	
-// // query_table(con,'Member');
+// query_table(con,'Member');
 // con.end();
 
 module.exports.query_table = query_table;

@@ -32,7 +32,20 @@ class Database extends Component {
   state = {
     data: [],
     open: false,
-    table_num: 0
+    table_num: 0,
+    header: [
+      { name: "First Name",     prop: "FirstName"},
+      { name: "Surname",        prop: "Surname"},
+      { name: "Sex",            prop: "Sex"},
+      { name: "Contact Number", prop: "ContactNumber"},
+      { name: "Address",        prop: "Address"},
+      { name: "DOB",            prop: "DOB"},
+      { name: "Role Code",      prop: "RoleCode"},
+      { name: "LoCode",         prop: "LoCode"},
+      { name: "Cell Group ID",  prop: "CellGroupID"},
+      { name: "Ministry ID",    prop: "MinistryID"},
+      { name: "Consents",       prop: "Consents"}
+    ]
   }
   
   componentDidMount(){
@@ -41,6 +54,7 @@ class Database extends Component {
 
   componentDidUpdate(prevProps ,prevState){
     if (prevState.open !== this.state.open || prevState.table_num !== this.state.table_num){
+      this.setHeader(this.state.table_num)
       switch(this.state.table_num){
         case 0:
           this.getMembers();
@@ -58,6 +72,61 @@ class Database extends Component {
           this.getMembers();
       }
     }
+  }
+
+  setHeader = (table_num) => {
+    var header_type
+    if (table_num == 0){
+      header_type = [
+      { name: "First Name",     prop: "FirstName"},
+      { name: "Surname",        prop: "Surname"},
+      { name: "Sex",            prop: "Sex"},
+      { name: "Contact Number", prop: "ContactNumber"},
+      { name: "Address",        prop: "Address"},
+      { name: "DOB",            prop: "DOB"},
+      { name: "Role Code",      prop: "RoleCode"},
+      { name: "LoCode",         prop: "LoCode"},
+      { name: "Cell Group ID",  prop: "CellGroupID"},
+      { name: "Ministry ID",    prop: "MinistryID"},
+      { name: "Consents",       prop: "Consents"}
+      ]
+    } 
+    else if (table_num == 1){
+      header_type = [
+        { name: "First Name",     prop: "FirstName"},
+        { name: "Surname",        prop: "Surname"},
+        { name: "Sex",            prop: "Sex"},
+        { name: "Contact Number", prop: "ContactNumber"},
+        { name: "Address",        prop: "Address"},
+        { name: "Status",         prop: "Status"},
+        ]
+    } else if (table_num == 2){
+      header_type = [
+        { name: "First Name",     prop: "FirstName"},
+        { name: "Surname",        prop: "Surname"},
+        { name: "Sex",            prop: "Sex"},
+        { name: "Contact Number", prop: "ContactNumber"},
+        { name: "Address",        prop: "Address"},
+        { name: "DOB",            prop: "DOB"},
+        { name: "Teacher",        prop: "Teacher"},
+        { name: "Class",          prop:  "Class"},
+        { name: "School Code",    prop: "SchoolCode"},
+        { name: "Mother's Name",  prop: "MotherName"},
+        { name: "Father's Name",  prop: "FatherName"},
+        { name: "Is Christian",   prop: "IsChristian"},
+        ]
+    } else if (table_num == 3){
+      header_type = [
+        { name: "Group Name",     prop: "GroupName"},
+        { name: "Leader ID",        prop: "LeaderID"},
+        { name: "Venue",            prop: "Venue"},
+        { name: "Meeting Day", prop: "MeetingDay"},
+        { name: "Meeting Time",        prop: "MeetingTime"},
+        { name: "LoCode",         prop: "LoCode"},
+        ]
+    }
+
+      this.setState({header : header_type})
   }
 
   getMembers = _ => {
@@ -115,54 +184,8 @@ class Database extends Component {
 
         <div className="App" style={styles.divStyle}>
         <Table
+          header={this.state.header}
           data={this.state.data}
-          header={[
-            {
-              name: "First Name",
-              prop: "FirstName"
-            },
-            {
-              name: "Surname",
-              prop: "Surname"
-            },
-            {
-              name: "Sex",
-              prop: "Sex"
-            },
-            {
-              name: "Contact Number",
-              prop: "ContactNumber"
-            },
-            {
-              name: "Address",
-              prop: "Address"
-            },
-            {
-              name: "DOB",
-              prop: "DOB"
-            },
-            {
-              name: "Role Code",
-              prop: "RoleCode"
-            },
-            {
-              name: "LoCode",
-              prop: "LoCode"
-            },
-            {
-              name: "Cell Group ID",
-              prop: "CellGroupID"
-            },
-            {
-              name: "Ministry ID",
-              prop: "MinistryID"
-            },
-            {
-              name: "Consents",
-              prop: "Consents"
-            }
-
-          ]}
           />
 
 
