@@ -111,6 +111,18 @@ app.post('/newmember', function(req,res){
     })
 });
 
+app.put('/delmember', function(req,res){
+    member = req.body.ID
+    console.log(member)
+    connection.query('DELETE FROM Member WHERE ID = ?',member, (err, result)=>{
+		if (err) {
+			console.error(err);
+			return res.send(err);
+		} 
+		console.error(result);
+    })
+});
+
 app.listen(port, function(){
     console.log('Example app listening on port', port);
 })

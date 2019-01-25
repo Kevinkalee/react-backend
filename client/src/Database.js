@@ -52,6 +52,20 @@ class Database extends Component {
     this.setState(state => ({
       data: state.data.filter((row, j) => j !== i)
     }));
+
+    var data = {ID : this.state.data[i].ID}
+    console.log(data) 
+    fetch('http://localhost:3001/deletemember' , {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }).then(function(response){
+        return response.text();
+        }).then(function(body){
+            console.log(body);
+        });
   };
 
   startEditing = i => {
