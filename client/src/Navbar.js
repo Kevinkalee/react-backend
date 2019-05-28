@@ -37,31 +37,31 @@ const styles = theme => ({
 
 class Navbar extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-} 
-  access_members_table(event){
+  }
+  access_members_table(event) {
     event.preventDefault()
     this.props.callbackFromParent(0)
   }
 
-  access_non_members_table(event){
+  access_non_members_table(event) {
     event.preventDefault()
     this.props.callbackFromParent(1)
   }
 
-  access_school_table(event){
+  access_school_table(event) {
     event.preventDefault()
     this.props.callbackFromParent(2)
   }
 
-  access_cell_group_table(event){
+  access_cell_group_table(event) {
     event.preventDefault()
     this.props.callbackFromParent(3)
   }
 
 
-  render(){
+  render() {
     const { classes } = this.props;
 
     return (
@@ -84,34 +84,34 @@ class Navbar extends React.Component {
           <div className={classes.toolbar} />
           <List>
 
-            <ListItem button  onClick={e => this.access_members_table(e)} >
+            <ListItem button onClick={e => this.access_members_table(e)} >
               <ListItemIcon>
-                <FaceIcon/>
+                <FaceIcon />
               </ListItemIcon>
-              <ListItemText primary= "Church Members"/> 
+              <ListItemText primary="Church Members" />
             </ListItem>
 
             <ListItem button onClick={e => this.access_non_members_table(e)}>
               <ListItemIcon>
-                <FaceIcon/>
+                <FaceIcon />
               </ListItemIcon>
-              <ListItemText primary= "Non Members"/> 
+              <ListItemText primary="Non Members" />
             </ListItem>
 
             <ListItem button onClick={e => this.access_school_table(e)}>
               <ListItemIcon>
-                <FaceIcon/>
+                <FaceIcon />
               </ListItemIcon>
-              <ListItemText primary= "Chinese School"/> 
+              <ListItemText primary="Chinese School" />
             </ListItem>
 
             <ListItem button onClick={e => this.access_cell_group_table(e)}>
               <ListItemIcon>
-                <FaceIcon/>
+                <FaceIcon />
               </ListItemIcon>
-              <ListItemText primary= "Cell Group"/> 
-            </ListItem> 
-    
+              <ListItemText primary="Cell Group" />
+            </ListItem>
+
           </List>
         </Drawer>
       </div>

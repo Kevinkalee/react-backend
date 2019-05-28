@@ -16,55 +16,55 @@ import { Link, withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     container: {
-      display: 'flex',
-      flexFlow: 'column',
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      alignItems: 'center'
+        display: 'flex',
+        flexFlow: 'column',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
     },
     dense: {
-      marginTop: 19,
+        marginTop: 19,
     },
     menu: {
-      width: 200,
+        width: 200,
     },
-  });
+});
 
 const headerStyles = ({
-    cardHeaderStyle:{
+    cardHeaderStyle: {
         background: '#42a4f4',
         color: 'white'
-      },
-    
+    },
+
 })
-  
+
 class TextFields extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             email: "",
             password: ""
         };
-    } 
+    }
 
     handleChange = name => event => {
         this.setState({
-          [name]: event.target.value,
+            [name]: event.target.value,
         });
-      };
-    
-    handleSubmit(event)  {
+    };
+
+    handleSubmit(event) {
         event.preventDefault()
         var data = {
-            email     : this.state.email, 
-            password  : this.state.lastName,
+            email: this.state.email,
+            password: this.state.lastName,
         }
 
         console.log(data)
@@ -84,46 +84,46 @@ class TextFields extends React.Component {
         // this.props.router.push('/Database')   
     }
 
-    render () {
+    render() {
         const { classes } = this.props;
 
         return (
-        <MuiThemeProvider>
-        <div className="App">
-            <h1>CGCD Database</h1>
-            </div>
+            <MuiThemeProvider>
+                <div className="App">
+                    <h1>CGCD Database</h1>
+                </div>
 
-            <div>
-                <form className={classes.container} noValidate autoComplete="off">    
-                
-                <TextField
-                        name="email"
-                        floatingLabelText="Email"
-                        value={this.state.firstName}
-                        onChange={this.handleChange('email')}
-            
-                    />
-                    <br />
-                    <TextField
-                        name="password"
-                        floatingLabelText="Password"
-                        value={this.state.password}
-                        onChange={this.handleChange('Password')}
-                    />
-                    <br />
-                
-                    
-                    <RaisedButton component ={Link} to="/Database" label="Submit" onClick={e => this.handleSubmit(e)} primary />
+                <div>
+                    <form className={classes.container} noValidate autoComplete="off">
+
+                        <TextField
+                            name="email"
+                            floatingLabelText="Email"
+                            value={this.state.firstName}
+                            onChange={this.handleChange('email')}
+
+                        />
+                        <br />
+                        <TextField
+                            name="password"
+                            floatingLabelText="Password"
+                            value={this.state.password}
+                            onChange={this.handleChange('Password')}
+                        />
+                        <br />
+
+
+                        <RaisedButton component={Link} to="/Database" label="Submit" onClick={e => this.handleSubmit(e)} primary />
                     </form>
-            </div>
-        </MuiThemeProvider>
+                </div>
+            </MuiThemeProvider>
         )
     }
 }
 
 TextFields.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
-  const comp1 = withStyles(styles)(TextFields)
+};
+const comp1 = withStyles(styles)(TextFields)
 //   const comp2 = withRouter(TextFields)
-  export default comp1;
+export default comp1;

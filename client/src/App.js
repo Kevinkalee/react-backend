@@ -14,7 +14,7 @@ class App extends React.Component {
   };
 
   startEditing = i => {
-    this.setState({ editIdx: i}); 
+    this.setState({ editIdx: i });
   };
 
   stopEditing = () => {
@@ -33,7 +33,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-  export default App;
+  classes: PropTypes.object.isRequired,
+};
+
+export default App;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button'; 
+import Button from '@material-ui/core/Button';
 import logo from './logo.svg';
 import './App.css';
 import Table from "./Table";
@@ -16,14 +16,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Appbar from "./Navbar"
 
 const styles = {
-  fabStyle:{
+  fabStyle: {
     verticalAlign: 'middle',
     position: 'relative'
-  }, 
-  cardHeaderStyle:{
+  },
+  cardHeaderStyle: {
     background: '#42a4f4'
   },
-  divStyle:{
+  divStyle: {
     margin: '4% 0% 0% 14%'
   }
 };
@@ -34,17 +34,17 @@ class Database extends Component {
     open: false,
     table_num: 0,
     header: [
-      { name: "First Name",     prop: "FirstName"},
-      { name: "Surname",        prop: "Surname"},
-      { name: "Sex",            prop: "Sex"},
-      { name: "Contact Number", prop: "ContactNumber"},
-      { name: "Address",        prop: "Address"},
-      { name: "DOB",            prop: "DOB"},
-      { name: "Role Code",      prop: "RoleCode"},
-      { name: "LoCode",         prop: "LoCode"},
-      { name: "Cell Group ID",  prop: "CellGroupID"},
-      { name: "Ministry ID",    prop: "MinistryID"},
-      { name: "Consents",       prop: "Consents"}
+      { name: "First Name", prop: "FirstName" },
+      { name: "Surname", prop: "Surname" },
+      { name: "Sex", prop: "Sex" },
+      { name: "Contact Number", prop: "ContactNumber" },
+      { name: "Address", prop: "Address" },
+      { name: "DOB", prop: "DOB" },
+      { name: "Role Code", prop: "RoleCode" },
+      { name: "LoCode", prop: "LoCode" },
+      { name: "Cell Group ID", prop: "CellGroupID" },
+      { name: "Ministry ID", prop: "MinistryID" },
+      { name: "Consents", prop: "Consents" }
     ],
     editIdx: -1
   }
@@ -53,26 +53,39 @@ class Database extends Component {
       data: state.data.filter((row, j) => j !== i)
     }));
 
-    var data = {ID : this.state.data[i].ID}
-    console.log(data) 
-    fetch('http://localhost:3001/deletemember' , {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify(data)
-        }).then(function(response){
-        return response.text();
-        }).then(function(body){
-            console.log(body);
-        });
+    var data = { ID: this.state.data[i].ID }
+    console.log(data)
+    fetch('http://localhost:3001/deletemember', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function (response) {
+      return response.text();
+    }).then(function (body) {
+      console.log(body);
+    });
   };
 
   startEditing = i => {
-    this.setState({ editIdx: i}); 
+    this.setState({ editIdx: i });
   };
 
-  stopEditing = () => {
+  stopEditing = i => {
+    var data = { ID: this.state.data[i] }
+    console.log(this.state.data[i])
+    fetch('http://localhost:3001/editmember', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(function (response) {
+      return response.text();
+    }).then(function (body) {
+      console.log(body);
+    });
     this.setState({ editIdx: -1 });
   };
 
@@ -84,14 +97,14 @@ class Database extends Component {
       )
     }));
   };
-  componentDidMount(){
+  componentDidMount() {
     this.getMembers();
   }
 
-  componentDidUpdate(prevProps ,prevState){
-    if (prevState.open !== this.state.open || prevState.table_num !== this.state.table_num){
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.open !== this.state.open || prevState.table_num !== this.state.table_num) {
       this.setHeader(this.state.table_num)
-      switch(this.state.table_num){
+      switch (this.state.table_num) {
         case 0:
           this.getMembers();
           break;
@@ -112,139 +125,139 @@ class Database extends Component {
 
   setHeader = (table_num) => {
     var header_type
-    if (table_num == 0){
+    if (table_num == 0) {
       header_type = [
-      { name: "First Name",     prop: "FirstName"},
-      { name: "Surname",        prop: "Surname"},
-      { name: "Sex",            prop: "Sex"},
-      { name: "Contact Number", prop: "ContactNumber"},
-      { name: "Address",        prop: "Address"},
-      { name: "DOB",            prop: "DOB"},
-      { name: "Role Code",      prop: "RoleCode"},
-      { name: "LoCode",         prop: "LoCode"},
-      { name: "Cell Group ID",  prop: "CellGroupID"},
-      { name: "Ministry ID",    prop: "MinistryID"},
-      { name: "Consents",       prop: "Consents"}
+        { name: "First Name", prop: "FirstName" },
+        { name: "Surname", prop: "Surname" },
+        { name: "Sex", prop: "Sex" },
+        { name: "Contact Number", prop: "ContactNumber" },
+        { name: "Address", prop: "Address" },
+        { name: "DOB", prop: "DOB" },
+        { name: "Role Code", prop: "RoleCode" },
+        { name: "LoCode", prop: "LoCode" },
+        { name: "Cell Group ID", prop: "CellGroupID" },
+        { name: "Ministry ID", prop: "MinistryID" },
+        { name: "Consents", prop: "Consents" }
       ]
-    } 
-    else if (table_num == 1){
+    }
+    else if (table_num == 1) {
       header_type = [
-        { name: "First Name",     prop: "FirstName"},
-        { name: "Surname",        prop: "Surname"},
-        { name: "Sex",            prop: "Sex"},
-        { name: "Contact Number", prop: "ContactNumber"},
-        { name: "Address",        prop: "Address"},
-        { name: "Status",         prop: "Status"},
-        ]
-    } else if (table_num == 2){
+        { name: "First Name", prop: "FirstName" },
+        { name: "Surname", prop: "Surname" },
+        { name: "Sex", prop: "Sex" },
+        { name: "Contact Number", prop: "ContactNumber" },
+        { name: "Address", prop: "Address" },
+        { name: "Status", prop: "Status" },
+      ]
+    } else if (table_num == 2) {
       header_type = [
-        { name: "First Name",     prop: "FirstName"},
-        { name: "Surname",        prop: "Surname"},
-        { name: "Sex",            prop: "Sex"},
-        { name: "Contact Number", prop: "ContactNumber"},
-        { name: "Address",        prop: "Address"},
-        { name: "DOB",            prop: "DOB"},
-        { name: "Teacher",        prop: "Teacher"},
-        { name: "Class",          prop:  "Class"},
-        { name: "School Code",    prop: "SchoolCode"},
-        { name: "Mother's Name",  prop: "MotherName"},
-        { name: "Father's Name",  prop: "FatherName"},
-        { name: "Is Christian",   prop: "IsChristian"},
-        ]
-    } else if (table_num == 3){
+        { name: "First Name", prop: "FirstName" },
+        { name: "Surname", prop: "Surname" },
+        { name: "Sex", prop: "Sex" },
+        { name: "Contact Number", prop: "ContactNumber" },
+        { name: "Address", prop: "Address" },
+        { name: "DOB", prop: "DOB" },
+        { name: "Teacher", prop: "Teacher" },
+        { name: "Class", prop: "Class" },
+        { name: "School Code", prop: "SchoolCode" },
+        { name: "Mother's Name", prop: "MotherName" },
+        { name: "Father's Name", prop: "FatherName" },
+        { name: "Is Christian", prop: "IsChristian" },
+      ]
+    } else if (table_num == 3) {
       header_type = [
-        { name: "Group Name",     prop: "GroupName"},
-        { name: "Leader ID",        prop: "LeaderID"},
-        { name: "Venue",            prop: "Venue"},
-        { name: "Meeting Day", prop: "MeetingDay"},
-        { name: "Meeting Time",        prop: "MeetingTime"},
-        { name: "LoCode",         prop: "LoCode"},
-        ]
+        { name: "Group Name", prop: "GroupName" },
+        { name: "Leader ID", prop: "LeaderID" },
+        { name: "Venue", prop: "Venue" },
+        { name: "Meeting Day", prop: "MeetingDay" },
+        { name: "Meeting Time", prop: "MeetingTime" },
+        { name: "LoCode", prop: "LoCode" },
+      ]
     }
 
-      this.setState({header : header_type})
+    this.setState({ header: header_type })
   }
 
   getMembers = _ => {
     fetch('http://localhost:3001/Members')
-    .then(response =>response.json())
-    .then(response => this.setState({ data: response.data }))
-    .catch(err =>console.error(err))
+      .then(response => response.json())
+      .then(response => this.setState({ data: response.data }))
+      .catch(err => console.error(err))
   }
 
   getNonMembers = _ => {
     fetch('http://localhost:3001/Nonmembers')
-    .then(response =>response.json())
-    .then(response => this.setState({ data: response.data }))
-    .catch(err =>console.error(err))
+      .then(response => response.json())
+      .then(response => this.setState({ data: response.data }))
+      .catch(err => console.error(err))
   }
 
   getChineseSchool = _ => {
     fetch('http://localhost:3001/ChineseSchool')
-    .then(response =>response.json())
-    .then(response => this.setState({ data: response.data }))
-    .catch(err =>console.error(err))
+      .then(response => response.json())
+      .then(response => this.setState({ data: response.data }))
+      .catch(err => console.error(err))
   }
 
   getCellGroup = _ => {
     fetch('http://localhost:3001/CellGroup')
-    .then(response =>response.json())
-    .then(response => this.setState({ data: response.data }))
-    .catch(err =>console.error(err))
+      .then(response => response.json())
+      .then(response => this.setState({ data: response.data }))
+      .catch(err => console.error(err))
   }
 
   handleClickOpen = () => {
-    this.setState({open:true});
+    this.setState({ open: true });
   }
 
   handleClose = () => {
-    this.setState({open:false});
+    this.setState({ open: false });
   }
 
   sendStatetoForm = (openState) => {
-    this.setState({open: openState})
+    this.setState({ open: openState })
   }
-  
+
   sendStatetoNavbar = (table_state) => {
-    this.setState({table_num: table_state})
+    this.setState({ table_num: table_state })
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     return (
       <MuiThemeProvider>
-      <div>
-        <Appbar callbackFromParent={this.sendStatetoNavbar}>
+        <div>
+          <Appbar callbackFromParent={this.sendStatetoNavbar}>
           </Appbar>
         </div>
 
         <div className="App" style={styles.divStyle}>
-        <Table
-          handleRemove={this.handleRemove}
-          startEditing={this.startEditing}
-          editIdx={this.state.editIdx}
-          stopEditing={this.stopEditing}
-          handleChange={this.handleChange}
-          header={this.state.header}
-          data={this.state.data}
+          <Table
+            handleRemove={this.handleRemove}
+            startEditing={this.startEditing}
+            editIdx={this.state.editIdx}
+            stopEditing={this.stopEditing}
+            handleChange={this.handleChange}
+            header={this.state.header}
+            data={this.state.data}
           />
 
-
-          <Button variant="fab" color ="primary" aria-label="Add" style={styles.fabStyle} onClick={this.handleClickOpen}>
-          <AddIcon/>
+          <br></br>
+          <Button variant="fab" color="primary" aria-label="Add" style={styles.fabStyle} onClick={this.handleClickOpen}>
+            <AddIcon />
           </Button>
           <Dialog
-            open= {this.state.open}
-            onClose = {this.handleClose}
-            aria-labelledby = "form-dialog-title"
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
           >
-          <DialogTitle id ="form-dialog-title">Insert Member Information</DialogTitle>
-          <DialogContent>
-            <Form callbackFromParent={this.sendStatetoForm}/>
-          </DialogContent>
+            <DialogTitle id="form-dialog-title">Insert Member Information</DialogTitle>
+            <DialogContent>
+              <Form callbackFromParent={this.sendStatetoForm} />
+            </DialogContent>
           </Dialog>
-            
-      </div>
+
+        </div>
       </MuiThemeProvider>
     );
   }

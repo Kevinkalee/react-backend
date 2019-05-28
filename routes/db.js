@@ -3,55 +3,55 @@ require('dotenv').config()
 var FLAG = 1; //  Debug FLAG for setting up database at the start 
 // Setting up database connection parameters
 var con = mysql.createConnection({
-    host : process.env.DB_HOST,
-    user : process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_TABLE
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_TABLE
 })
 
 // Testing connection to database
-function connect(connection){
-	connection.connect(function(err){
+function connect(connection) {
+	connection.connect(function (err) {
 		if (!err) {
 			console.log("Database is connected ...");
 		} else {
 			console.log("Error connecting database ... ");
 		}
 	});
-	return; 
+	return;
 };
 
 // create database
-function create_database(connection, name){
-	connection.query('CREATE DATABASE '+ name , function (err,results){
-		if (err) throw err; 
-		console.log('Database ' + name +' created!');
-	});	
+function create_database(connection, name) {
+	connection.query('CREATE DATABASE ' + name, function (err, results) {
+		if (err) throw err;
+		console.log('Database ' + name + ' created!');
+	});
 }
 
 // creates member table within db
-function create_member_table(connection){
-	
-	var query = connection.query('CREATE TABLE Member (' + 
+function create_member_table(connection) {
+
+	var query = connection.query('CREATE TABLE Member (' +
 		'ID INT NOT NULL AUTO_INCREMENT,' +
 		'Surname VARCHAR(255),' +
-		'FirstName VARCHAR(255),' + 
+		'FirstName VARCHAR(255),' +
 		'Sex ENUM("M","F"),' +
 		'ContactNumber VARCHAR(15),' +
 		'Address VARCHAR(255),' +
 		'DOB DATE,' +
 		'RoleCode VARCHAR(2),' +
 		'LoCode VARCHAR(3),' +
-		'CellGroupID VARCHAR(10),' + 
+		'CellGroupID VARCHAR(10),' +
 		'MinistryID VARCHAR(10),' +
- 		'Consents VARCHAR(255),' +
+		'Consents VARCHAR(255),' +
 		'PRIMARY KEY (ID)) ');
 	console.log(query.sql);
 
 }
 
 // create non members table within db
-function create_non_members_table(connection){
+function create_non_members_table(connection) {
 
 	var query = connection.query('CREATE TABLE Non_Members(' +
 		'ID INT NOT NULL, ' +
@@ -62,39 +62,39 @@ function create_non_members_table(connection){
 		'Address VARCHAR(255), ' +
 		'Status ENUM("Regular","Visitor"), ' +
 		'PRIMARY KEY(ID))');
-	console.log(query.sql);		
-		
+	console.log(query.sql);
+
 }
 
-function create_cell_group_table(connection){
-	var query = connection.query('CREATE TABLE Cell_Group( '+
-		'ID INT NOT NULL AUTO_INCREMENT, '+
-		'GroupID VARCHAR(10), '+
-		'LeaderID INT, '+
-		'Venue VARCHAR(255), '+
-		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), '+
-		'Meeting_Time TIME, '+
-		'Location_Code VARCHAR(3), '+
+function create_cell_group_table(connection) {
+	var query = connection.query('CREATE TABLE Cell_Group( ' +
+		'ID INT NOT NULL AUTO_INCREMENT, ' +
+		'GroupID VARCHAR(10), ' +
+		'LeaderID INT, ' +
+		'Venue VARCHAR(255), ' +
+		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), ' +
+		'Meeting_Time TIME, ' +
+		'Location_Code VARCHAR(3), ' +
 		'PRIMARY KEY(ID))');
 	console.log(query.sql);
 
 }
 
-function create_ministry_table(connection){
-	var query = connection.query('CREATE TABLE Ministry('+
-		'ID INT NOT NULL, '+
-		'MinistryID VARCHAR(255), '+
-		'MinistryName VARCHAR(255), '+
-		'LeaderID VARCHAR(255), '+
-		'Venue VARCHAR(255), '+
-		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), '+
-		'Meeting_Time TIME, '+
-		'Location_Code VARCHAR(3), '+
-		'PRIMARY KEY(ID))'); 
+function create_ministry_table(connection) {
+	var query = connection.query('CREATE TABLE Ministry(' +
+		'ID INT NOT NULL, ' +
+		'MinistryID VARCHAR(255), ' +
+		'MinistryName VARCHAR(255), ' +
+		'LeaderID VARCHAR(255), ' +
+		'Venue VARCHAR(255), ' +
+		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), ' +
+		'Meeting_Time TIME, ' +
+		'Location_Code VARCHAR(3), ' +
+		'PRIMARY KEY(ID))');
 	console.log(query.sql);
 }
 
-function create_school_lookup_table(connection){
+function create_school_lookup_table(connection) {
 
 	var query = connection.query('CREATE TABLE School_Lookup(' +
 		'ID INT NOT NULL, ' +
@@ -105,12 +105,12 @@ function create_school_lookup_table(connection){
 		'Meeting_Day ENUM("MON","TUE","WED","THU","FRI","SAT","SUN"), ' +
 		'Meeting_Time TIME, ' +
 		'Location_Code VARCHAR(3), ' +
-		'PRIMARY KEY(ID))'); 
+		'PRIMARY KEY(ID))');
 	console.log(query.sql);
-		
+
 }
 
-function create_location_lookup_table(connection){
+function create_location_lookup_table(connection) {
 
 	var query = connection.query('CREATE TABLE Location_Lookup( ' +
 		'ID INT NOT NULL, ' +
@@ -121,7 +121,7 @@ function create_location_lookup_table(connection){
 
 }
 
-function create_role_lookup_table(connection){
+function create_role_lookup_table(connection) {
 
 	var query = connection.query('CREATE TABLE Role_Lookup( ' +
 		'ID INT NOT NULL, ' +
@@ -131,39 +131,39 @@ function create_role_lookup_table(connection){
 	console.log(query.sql);
 }
 
-function create_student_table(connection){
-	
-	var query = connection.query('CREATE TABLE Student( '+
-			'ID INT NOT NULL, '+
-			'Student_ID INT, '+
-			'Surname VARCHAR(255), '+
-			'FirstName VARCHAR(255), '+
-			'DOB DATE, '+
-			'Class VARCHAR(255), '+
-			'Teacher INT, '+
-			'SchoolCode VARCHAR(255), '+
-			'MotherName VARCHAR(255), '+
-			'FatherName VARCHAR(255), '+
-			'Is_Christian ENUM("Y","N"), '+
-			'PRIMARY KEY(Student_ID))');
+function create_student_table(connection) {
+
+	var query = connection.query('CREATE TABLE Student( ' +
+		'ID INT NOT NULL, ' +
+		'Student_ID INT, ' +
+		'Surname VARCHAR(255), ' +
+		'FirstName VARCHAR(255), ' +
+		'DOB DATE, ' +
+		'Class VARCHAR(255), ' +
+		'Teacher INT, ' +
+		'SchoolCode VARCHAR(255), ' +
+		'MotherName VARCHAR(255), ' +
+		'FatherName VARCHAR(255), ' +
+		'Is_Christian ENUM("Y","N"), ' +
+		'PRIMARY KEY(Student_ID))');
 	console.log(query.sql);
 }
 
 // Selecting and displaying entire table name 
-function query_table(connection , table_name){
-	connection.query('SELECT * FROM ' + table_name , function(err, rows, fields){
-		if(!err){ 
-			console.log( rows);
-			return rows; 
+function query_table(connection, table_name) {
+	connection.query('SELECT * FROM ' + table_name, function (err, rows, fields) {
+		if (!err) {
+			console.log(rows);
+			return rows;
 		}
-		else 
+		else
 			console.log('Error while performing query');
 	})
 }
 
 
-function insert_entry(connection, entry){
-	var query = connection.query('INSERT INTO Member SET ?', entry, function(err, result){
+function insert_entry(connection, entry) {
+	var query = connection.query('INSERT INTO Member SET ?', entry, function (err, result) {
 		if (err) {
 			console.error(err);
 			return;
@@ -185,7 +185,7 @@ var pastor = {
 	MinistryID: 'M1100',
 	Consents: 'C1,C2,C3,C4,C5,S1,S2,S3,S4'
 };
-var church_member ={
+var church_member = {
 	Surname: 'Lee',
 	FirstName: 'Kevin',
 	Sex: 'M',
@@ -218,4 +218,4 @@ var church_member ={
 
 module.exports.query_table = query_table;
 // module.exports.con = con; 
-module.exports.connect= connect;
+module.exports.connect = connect;

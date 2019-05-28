@@ -1,13 +1,13 @@
 import React from 'react';
-import {BrowserRouter as Router, Route , Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Login from './Login';
 import Database from './Database';
 
 const Routes = () => (
-    <Router> 
+    <Router>
         <div>
-            <Route exact path="/" component= {Login}/>
-            <Route path="/Database" component={Database}/>
+            <Route exact path="/" component={Login} />
+            <Route path="/Database" component={Database} />
         </div>
     </Router>
 );
