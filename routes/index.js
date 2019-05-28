@@ -145,22 +145,6 @@ app.put('/editmember', function (req, res) {
     })
 })
 
-function build_edit_payload(json) {
-    // Builds a query string to edit and update fields
-    var keys = Object.keys(json)
-    var query = "UPDATE Member SET ("
-    for (i = 1; i < keys.length; i++) {
-        query = query.concat(String(keys[i]), " = '", String(json[keys[i]]), "'")
-
-        if (i == keys.length - 1) {
-            query = query.concat(")")
-        } else {
-            query = query.concat(", ")
-        }
-    }
-    return query
-}
-
 app.listen(port, function () {
     console.log('Example app listening on port', port);
 })
